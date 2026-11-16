@@ -2,10 +2,12 @@ import sqlite3
 from pathlib import Path
 
 
-PROJECT_ROOT = Path(__file__).resolve().parent
-DATA_DIR = PROJECT_ROOT / "data"
+BACKEND_ROOT = Path(__file__).resolve().parent
+PROJECT_ROOT = BACKEND_ROOT.parent
+DATA_DIR = BACKEND_ROOT / "data"
 SCHEMA_PATH = DATA_DIR / "schema.sql"
 DEFAULT_DATABASE = DATA_DIR / "danang_lost_found.db"
+WEB_DIR = PROJECT_ROOT / "web"
 
 
 def connect_database(database_path: str | Path) -> sqlite3.Connection:

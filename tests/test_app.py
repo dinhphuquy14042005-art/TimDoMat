@@ -2,9 +2,9 @@ import sqlite3
 
 import pytest
 
-from app import create_app
-from init_db import initialize_database
-from recommend import analyze_claim
+from backend.app import create_app
+from backend.init_db import initialize_database
+from backend.recommend import analyze_claim
 
 
 @pytest.fixture

@@ -3,8 +3,8 @@
 ## Chạy ứng dụng
 
 1. Cài Python 3.10 trở lên.
-2. Cài thư viện: `python -m pip install -r requirements.txt`
-3. Chạy máy chủ: `python app.py`
+2. Cài thư viện: `python -m pip install -r backend/requirements.txt`
+3. Từ thư mục gốc, chạy máy chủ: `python -m backend.app`
 4. Mở `http://127.0.0.1:5000` trong trình duyệt.
 
 ## Môi trường chạy đã xác minh
@@ -20,27 +20,26 @@
 
 ```text
 DoAnTriTueNhanTao/
-├── app.py              # Flask routes và API
-├── database.py         # Kết nối SQLite, nạp schema và cập nhật schema cũ
-├── recommend.py        # Chuẩn hóa từ khóa và chấm điểm xác minh cục bộ
-├── init_db.py          # Khởi tạo tài khoản quản trị
-├── requirements.txt
-├── data/
-│   ├── schema.sql
-│   └── danang_lost_found.db  # Tự tạo khi chạy; không đưa lên Git
-├── templates/
-│   └── index.html
-├── static/
-│   ├── style.css
-│   └── client.js
+├── backend/
+│   ├── app.py          # Flask routes và API
+│   ├── database.py     # Kết nối SQLite và quản lý schema
+│   ├── recommend.py    # Chấm điểm xác minh cục bộ
+│   ├── init_db.py      # Khởi tạo tài khoản quản trị
+│   ├── requirements.txt
+│   └── data/
+│       ├── schema.sql
+│       └── danang_lost_found.db  # Tự tạo khi chạy; không đưa lên Git
+├── web/
+│   ├── templates/index.html
+│   └── static/{style.css, client.js}
 └── tests/
 ```
 
-Các tên `results.html`, `admin_add.html` và `seed_data.csv` trong ví dụ phòng trọ không phù hợp với luồng tin thất lạc của ứng dụng này; giao diện hiện tại dùng một trang chính, dữ liệu thật được nhập trực tiếp và lưu trong SQLite.
+`backend/` chứa ứng dụng Flask, `web/` chứa giao diện được Flask phục vụ. Dự án hiện chưa có ứng dụng Android/Flutter nên không tạo thư mục `app/` giả hoặc chuyển đổi sang Node.js, Vite hay Supabase.
 
-Không mở trực tiếp `index.html` bằng giao thức `file://`; trang cần máy chủ Flask để đăng nhập và lưu dữ liệu.
+Không mở trực tiếp `web/templates/index.html` bằng giao thức `file://`; trang cần máy chủ Flask để đăng nhập và lưu dữ liệu.
 
-CSDL SQLite `danang_lost_found.db` được tạo và cập nhật tự động khi máy chủ khởi động. Để tạo tài khoản quản trị trên CSDL mới, chạy `python init_db.py`; mật khẩu được nhập tương tác và lưu dạng PBKDF2 có salt. Tài khoản quản trị hiện có không bị ghi đè khi khởi tạo lại.
+CSDL SQLite `backend/data/danang_lost_found.db` được tạo và cập nhật tự động khi máy chủ khởi động. Để tạo tài khoản quản trị trên CSDL mới, chạy `python -m backend.init_db` từ thư mục gốc; mật khẩu được nhập tương tác và lưu dạng PBKDF2 có salt. Tài khoản quản trị hiện có không bị ghi đè khi khởi tạo lại.
 
 Có thể cấu hình `DATABASE_PATH`, `PORT` và `SESSION_SECRET` qua biến môi trường. Hãy đặt `SESSION_SECRET` ổn định, bật HTTPS và đặt `COOKIE_SECURE=true` khi triển khai ngoài máy cá nhân. Máy chủ mặc định chỉ lắng nghe `127.0.0.1`.
 

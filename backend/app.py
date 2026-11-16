@@ -13,8 +13,8 @@ from pathlib import Path
 
 from flask import Flask, g, jsonify, render_template, request, session
 
-from database import DEFAULT_DATABASE, PROJECT_ROOT, connect_database, initialize_schema
-from recommend import analyze_claim, is_useful_clue
+from .database import DEFAULT_DATABASE, WEB_DIR, connect_database, initialize_schema
+from .recommend import analyze_claim, is_useful_clue
 
 
 PASSWORD_ITERATIONS = 600_000
@@ -53,8 +53,8 @@ def verify_password(password: str, stored_hash: str) -> bool:
 def create_app(database_path: str | Path | None = None, secret_key: str | None = None) -> Flask:
     app = Flask(
         __name__,
-        template_folder=str(PROJECT_ROOT / "templates"),
-        static_folder=str(PROJECT_ROOT / "static"),
+        template_folder=str(WEB_DIR / "templates"),
+        static_folder=str(WEB_DIR / "static"),
     )
     app.config.update(
         DATABASE=str(database_path or os.environ.get("DATABASE_PATH", DEFAULT_DATABASE)),

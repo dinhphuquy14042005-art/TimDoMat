@@ -7,7 +7,7 @@ import secrets
 import sqlite3
 from pathlib import Path
 
-from database import DEFAULT_DATABASE, SCHEMA_PATH
+from .database import DEFAULT_DATABASE, SCHEMA_PATH
 
 PASSWORD_ITERATIONS = 600_000
 DEFAULT_ADMIN_EMAIL = "admin@gmail.com"
