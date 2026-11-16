@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  const districts = ["Tất cả khu vực", "Hải Châu", "Thanh Khê", "Sơn Trà", "Ngũ Hành Sơn", "Liên Chiểu", "Cẩm Lệ", "Hòa Vang", "Hoàng Sa", "Chưa rõ"];
+  const districts = ["Tất cả khu vực", "Hải Châu", "Thanh Khê", "Sơn Trà", "Ngũ Hành Sơn", "Liên Chiểu", "Cẩm Lệ", "Hòa Vang", "Chưa rõ"];
   const icons = { "Giấy tờ": "🪪", "Ví & túi": "👛", "Điện tử": "📱", "Chìa khóa": "🔑", "Thú cưng": "🐈", "Khác": "📦" };
   const cards = document.getElementById("cards");
   const searchInput = document.getElementById("search-input");

@@ -301,7 +301,6 @@
               <button class="map-area" type="button" data-map-area="hai-chau" data-map-district="Hải Châu" aria-pressed="false"><span class="map-area-count">0</span><span>Hải Châu</span></button>
               <button class="map-area" type="button" data-map-area="cam-le" data-map-district="Cẩm Lệ" aria-pressed="false"><span class="map-area-count">0</span><span>Cẩm Lệ</span></button>
               <button class="map-area" type="button" data-map-area="ngu-hanh-son" data-map-district="Ngũ Hành Sơn" aria-pressed="false"><span class="map-area-count">0</span><span>Ngũ Hành Sơn</span></button>
-              <button class="map-area" type="button" data-map-area="hoang-sa" data-map-district="Hoàng Sa" aria-pressed="false"><span class="map-area-count">0</span><span>Hoàng Sa</span></button>
             </div>
           </section>
           <div class="cards" id="cards"></div>
@@ -424,7 +423,7 @@
             <option value="" selected>Chọn quận nếu biết</option>
             <option>Hải Châu</option><option>Thanh Khê</option><option>Sơn Trà</option>
             <option>Ngũ Hành Sơn</option><option>Liên Chiểu</option><option>Cẩm Lệ</option>
-            <option>Hòa Vang</option><option>Hoàng Sa</option>
+            <option>Hòa Vang</option>
           </select>
         </div>
         <div class="field">
@@ -508,7 +507,7 @@
         { id: "sample-6", type: "found", title: "Nhặt được túi vải màu be", category: "Ví & túi", description: "Túi vải nhỏ, bên trong có một vài vật dụng cá nhân. Nhặt ở khu vực quán cà phê.", district: "Ngũ Hành Sơn", location: "Đường Ngũ Hành Sơn", date: "2026-11-11", phone: "", icon: "👜", tone: "", sample: true }
       ];
       const categoryIcons = { "Giấy tờ": ["🪪", "blue"], "Ví & túi": ["👛", "gold"], "Điện tử": ["📱", "blue"], "Chìa khóa": ["🔑", ""], "Thú cưng": ["🐈", "gold"], "Khác": ["📦", "pink"] };
-      const districts = ["Tất cả khu vực", "Hải Châu", "Thanh Khê", "Sơn Trà", "Ngũ Hành Sơn", "Liên Chiểu", "Cẩm Lệ", "Hòa Vang", "Hoàng Sa"];
+      const districts = ["Tất cả khu vực", "Hải Châu", "Thanh Khê", "Sơn Trà", "Ngũ Hành Sơn", "Liên Chiểu", "Cẩm Lệ", "Hòa Vang"];
       const cards = document.getElementById("cards");
       const searchInput = document.getElementById("search-input");
       const categoryFilter = document.getElementById("category-filter");

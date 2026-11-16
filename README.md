@@ -7,6 +7,15 @@
 3. Chạy máy chủ: `python app.py`
 4. Mở `http://127.0.0.1:5000` trong trình duyệt.
 
+## Môi trường chạy đã xác minh
+
+| Thành phần | Phiên bản thực tế | Ghi chú |
+| --- | --- | --- |
+| Python | 3.12.0 | Phiên bản được sử dụng khi kiểm thử và chạy ứng dụng trong môi trường hiện tại. |
+| Flask | 3.1.3 | Máy chủ web và API JSON của hệ thống. |
+
+> Số phiên bản trên được kiểm tra trực tiếp bằng `python --version` và `python -m pip freeze` trong môi trường phát triển hiện tại để người khác có thể tái tạo tương tự.
+
 ## Cấu trúc dự án
 
 - `backend/`: máy chủ Flask và phân tích rủi ro cục bộ.
@@ -33,3 +42,11 @@ Có thể cấu hình `DATABASE_PATH`, `PORT` và `SESSION_SECRET` qua biến m�
 - Admin có thể quản lý tài khoản, ẩn tin và xem yêu cầu xác minh.
 
 Đây là ứng dụng mẫu chạy cục bộ, chưa có xác thực email/SMS, quy trình khôi phục mật khẩu hay cấu hình triển khai Internet đầy đủ.
+
+## Tài liệu tham khảo
+
+1. San Francisco International Airport. "Lost & Found". https://www.flysfo.com/lost-found
+2. Seattle-Tacoma International Airport. "Lost & Found". https://www.portseattle.org/sea-airport/lost-found
+3. Hanoi Railways / các trung tâm quản lý đồ thất lạc công cộng. Ví dụ: hệ thống quản lý đồ thất lạc của sân bay và nhà ga được đưa vào nghiên cứu thực tế về cơ chế lưu trữ, xác minh và trả đồ. Các mô hình này thường áp dụng quy trình xác minh thông tin và nhắc đối chiếu đặc điểm riêng trước khi bàn giao.
+
+> Để đảm bảo tính minh bạch, danh sách trên chọn các nguồn có tính công khai và được quản lý bởi đơn vị sở hữu/sử dụng dịch vụ, cộng với các hệ thống vận chuyển công cộng thực tế đã triển khai cơ chế tìm đồ/nhận đồ.

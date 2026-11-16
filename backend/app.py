@@ -24,7 +24,7 @@ PHONE_PATTERN = re.compile(r"^[0-9]{8,15}$")
 EMAIL_PATTERN = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 DISTRICTS = {
     "Hải Châu", "Thanh Khê", "Sơn Trà", "Ngũ Hành Sơn",
-    "Liên Chiểu", "Cẩm Lệ", "Hòa Vang", "Hoàng Sa",
+    "Liên Chiểu", "Cẩm Lệ", "Hòa Vang",
 }
 UNKNOWN_DISTRICT = "Chưa rõ"
 CATEGORIES = {"Giấy tờ", "Ví & túi", "Điện tử", "Chìa khóa", "Thú cưng", "Khác"}
