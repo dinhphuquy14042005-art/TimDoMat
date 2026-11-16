@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f4">
+  <title>Nhặt Được — Tìm đồ thất lạc Đà Nẵng</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172a26;
+      --muted: #788780;
+      --green: #157b63;
+      --green-dark: #0c5848;
+      --mint: #e8f4ee;
+      --paper: #f5f7f4;
+      --line: #e7ece8;
+      --white: #fff;
+      --orange: #e88b4a;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); min-width: 320px; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    .shell { max-width: 1440px; margin: auto; padding: 0 42px; }
+    header { height: 82px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; font-size: 19px; font-weight: 800; letter-spacing: -.5px; }
+    .brand-mark { width: 36px; height: 36px; display: grid; place-items: center; background: var(--green); color: white; border-radius: 12px; font-size: 20px; }
+    .header-right { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: 13px; }
+    .location { display: flex; gap: 7px; align-items: center; }
+    .location strong { color: var(--ink); font-weight: 650; }
+    .primary-btn { border: 0; padding: 12px 17px; border-radius: 10px; background: var(--green); color: white; font-weight: 700; font-size: 13px; box-shadow: 0 5px 12px #157b6324; transition: background .18s, transform .18s; }
+    .primary-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .hero { border-radius: 20px; min-height: 238px; padding: 36px 44px; position: relative; overflow: hidden; color: white; background: linear-gradient(110deg, #0d5f4c 0%, #16856a 70%, #269578 100%); }
+    .hero:after { content: ""; position: absolute; width: 300px; height: 300px; border: 1px solid #ffffff20; border-radius: 50%; right: 93px; top: -100px; box-shadow: 0 0 0 35px #ffffff08, 0 0 0 70px #ffffff06; }
+    .hero-copy { position: relative; z-index: 1; max-width: 680px; }
+    .eyebrow { text-transform: uppercase; letter-spacing: 1.5px; font-size: 10px; font-weight: 800; color: #b7e6d3; }
+    h1 { font-size: clamp(29px, 3.8vw, 42px); letter-spacing: -1.6px; line-height: 1.12; margin: 13px 0 11px; }
+    .hero p { color: #d3eee3; margin: 0; font-size: 14px; line-height: 1.6; }
+    .hero-stats { display: flex; gap: 27px; margin-top: 23px; }
+    .stat { display: flex; gap: 7px; align-items: baseline; font-size: 12px; color: #d7eee5; }
+    .stat strong { font-size: 19px; color: white; }
+    .search-wrap { position: relative; z-index: 2; max-width: 670px; margin-top: 24px; }
+    .search-box { background: white; height: 48px; display: flex; align-items: center; gap: 11px; padding: 0 15px; border-radius: 11px; box-shadow: 0 8px 22px #073b2e35; }
+    .search-box span { color: var(--green); font-size: 18px; }
+    .search-box input { border: 0; outline: 0; flex: 1; min-width: 0; color: var(--ink); font-size: 13px; }
+    .search-box input::placeholder { color: #9aa59f; }
+    main { padding: 29px 0 60px; }
+    .section-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 19px; }
+    h2 { font-size: 19px; letter-spacing: -.4px; margin: 0; }
+    .result-count { margin-top: 5px; color: var(--muted); font-size: 12px; }
+    .feed-layout { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 30px; align-items: start; }
+    .filters { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 17px; }
+    .filter-group { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip { border: 1px solid var(--line); background: white; color: #64736c; padding: 8px 13px; border-radius: 9px; font-weight: 650; font-size: 11px; transition: .15s; }
+    .chip:hover { border-color: #9dcbbb; color: var(--green); }
+    .chip.active { background: var(--green); color: white; border-color: var(--green); }
+    .select-wrap select { border: 1px solid var(--line); background: white; border-radius: 9px; color: #687770; padding: 9px 30px 9px 11px; font-size: 11px; outline: none; }
+    .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+    .card { position: relative; display: flex; gap: 14px; min-height: 149px; padding: 16px; background: white; border: 1px solid #edf0ed; border-radius: 13px; transition: box-shadow .18s, transform .18s; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px #223a2d0b; }
+    .item-icon { flex: 0 0 57px; width: 57px; height: 57px; border-radius: 12px; display: grid; place-items: center; font-size: 26px; background: #f2f5ee; }
+    .item-icon.blue { background: #eef4fa; }
+    .item-icon.gold { background: #fbf5e9; }
+    .item-icon.pink { background: #fbf0ef; }
+    .card-content { min-width: 0; flex: 1; }
+    .card-head { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding-right: 1px; }
+    .card h3 { margin: 0; font-size: 14px; line-height: 1.35; letter-spacing: -.2px; }
+    .badge { display: inline-flex; align-items: center; white-space: nowrap; border-radius: 5px; padding: 4px 6px; font-size: 9px; font-weight: 750; }
+    .badge.lost { color: #bd6b2d; background: #fff2e5; }
+    .badge.found { color: #157b63; background: #e8f5ee; }
+    .badge.sample { color: #738078; background: #f0f2ef; font-weight: 650; }
+    .description { color: #76847d; font-size: 11px; line-height: 1.5; margin: 7px 0 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-meta { display: flex; gap: 11px; flex-wrap: wrap; color: #909b95; font-size: 10px; }
+    .card-meta span { white-space: nowrap; }
+    .contact-btn { border: 0; background: transparent; padding: 0; color: var(--green); font-size: 10px; font-weight: 750; margin-top: 11px; }
+    .contact-btn:hover { color: var(--green-dark); text-decoration: underline; }
+    .card-actions { display: flex; flex-wrap: wrap; gap: 5px 13px; align-items: center; }
+    .verify-note { grid-column: 1 / -1; padding: 10px 12px; border-radius: 8px; background: #f0f7f1; color: #64776b; font-size: 11px; line-height: 1.5; }
+    .request-list { display: grid; gap: 9px; margin-top: 16px; }
+    .request-card { padding: 12px; border: 1px solid var(--line); border-radius: 9px; background: #fbfcfb; }
+    .request-card p { margin: 0 0 8px; color: #53645b; font-size: 12px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .request-card a { color: var(--green); font-size: 11px; font-weight: 700; }
+    .meeting-details { margin: 12px 0; padding: 11px; border-radius: 8px; background: #f0f7f1; color: #52635a; font-size: 11px; line-height: 1.55; overflow-wrap: anywhere; }
+    .meeting-details p { margin: 5px 0 0; }
+    .safety-warning { margin: 10px 0; padding: 11px; border: 1px solid #efb4a9; border-radius: 8px; background: #fff0ed; color: #9c342b; font-size: 11px; font-weight: 700; line-height: 1.55; }
+    .meeting-confirm { display: flex; align-items: flex-start; gap: 8px; color: #52635a; font-size: 11px; line-height: 1.45; }
+    .meeting-confirm input { margin-top: 2px; }
+    .request-actions { display: flex; gap: 8px; margin-top: 10px; }
+    .request-actions button, .table-action { border: 0; border-radius: 6px; padding: 6px 9px; font-size: 10px; font-weight: 700; }
+    .accept-btn { color: #157b63; background: #e8f5ee; }
+    .reject-btn, .danger-btn { color: #a74a3d; background: #fff0ed; }
+    .risk-badge { display: inline-flex; border-radius: 6px; padding: 5px 7px; font-size: 10px; font-weight: 750; white-space: nowrap; }
+    .risk-badge.high { color: #a43e32; background: #fff0ed; }
+    .risk-badge.medium { color: #986620; background: #fff6df; }
+    .risk-badge.low { color: #17684f; background: #e9f5ee; }
+    .table-action { margin: 2px; }
+    .inbox-title { margin: 18px 0 0; font-size: 13px; }
+    .inbox-empty { color: var(--muted); font-size: 11px; margin: 10px 0 0; }
+    .account-label { color: var(--ink); font-size: 12px; font-weight: 650; }
+    .account-buttons { display: flex; align-items: center; gap: 8px; }
+    .account-buttons .secondary-btn { padding: 9px 11px; }
+    .admin-view { padding: 26px 0 54px; }
+    .admin-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 20px; }
+    .admin-heading p { color: var(--muted); font-size: 12px; margin: 6px 0 0; }
+    .admin-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px; }
+    .admin-stat { background: white; border: 1px solid var(--line); border-radius: 11px; padding: 15px; color: var(--muted); font-size: 11px; }
+    .admin-stat strong { display: block; color: var(--ink); font-size: 23px; margin-bottom: 4px; }
+    .admin-card { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 17px; }
+    .admin-tabs { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
+    .admin-content { overflow-x: auto; }
+    .admin-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .admin-table th, .admin-table td { border-bottom: 1px solid var(--line); padding: 10px 8px; text-align: left; vertical-align: top; }
+    .admin-table th { color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .admin-table td { max-width: 260px; overflow-wrap: anywhere; }
+    .my-posts-view { padding: 26px 0 54px; }
+    .status-text { color: var(--muted); font-size: 10px; }
+    aside { padding-top: 1px; }
+    .side-card { background: white; border: 1px solid #edf0ed; border-radius: 13px; padding: 19px; margin-bottom: 13px; }
+    .side-card h3 { margin: 0 0 13px; font-size: 13px; }
+    .district-list { display: grid; gap: 4px; }
+    .district-btn { display: flex; justify-content: space-between; border: 0; background: transparent; padding: 8px 0; color: #6f7d76; text-align: left; font-size: 11px; }
+    .district-btn:hover, .district-btn.selected { color: var(--green); font-weight: 700; }
+    .district-btn span:last-child { color: #9ca8a1; }
+    .lost-map-panel { margin-bottom: 16px; padding: 17px; background: white; border: 1px solid #edf0ed; border-radius: 13px; }
+    .map-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .map-heading h3 { margin: 0; font-size: 13px; }
+    .map-heading p { margin: 5px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .map-actions { display: flex; align-items: flex-start; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .map-reset { flex: 0 0 auto; border: 1px solid var(--line); border-radius: 7px; padding: 7px 9px; background: white; color: var(--green); font-size: 10px; font-weight: 700; }
+    .lost-map { position: relative; min-height: 300px; overflow: hidden; border: 1px solid #e4ece4; border-radius: 10px; background: #edf4e9; isolation: isolate; }
+    .lost-map::before { content: ""; position: absolute; z-index: -1; top: -12%; right: -5%; width: 24%; height: 125%; border-left: 4px solid #fff; border-radius: 48% 0 0 52%; background: #dceef4; transform: rotate(7deg); }
+    .lost-map::after { content: ""; position: absolute; z-index: -1; inset: 0; opacity: .48; background: repeating-linear-gradient(28deg, transparent 0 67px, #fff 68px 70px, transparent 71px 105px), repeating-linear-gradient(151deg, transparent 0 91px, #fff 92px 94px, transparent 95px 132px); }
+    .map-water-label { position: absolute; right: 2%; top: 49%; color: #7398a5; font-size: 9px; letter-spacing: .5px; transform: rotate(75deg); }
+    .map-area { position: absolute; display: grid; justify-items: center; gap: 3px; width: 100px; padding: 5px 6px; border: 1px solid #dfe8df; border-radius: 10px; background: #ffffffed; color: #50635a; font-size: 10px; font-weight: 650; line-height: 1.15; box-shadow: 0 3px 9px #29493618; transform: translate(-50%, -50%); transition: .15s; }
+    .map-area:hover, .map-area.selected { z-index: 1; border-color: var(--green); color: var(--green-dark); box-shadow: 0 0 0 2px #157b6320, 0 4px 11px #29493620; }
+    .map-area-count { min-width: 20px; padding: 3px 6px; border-radius: 10px; background: #e8f4ee; color: var(--green-dark); font-size: 10px; font-weight: 800; }
+    .map-area.selected .map-area-count { background: var(--green); color: white; }
+    .map-area[data-map-area="hoa-vang"] { left: 18%; top: 72%; }
+    .map-area[data-map-area="lien-chieu"] { left: 25%; top: 22%; }
+    .map-area[data-map-area="thanh-khe"] { left: 49%; top: 24%; }
+    .map-area[data-map-area="son-tra"] { left: 74%; top: 22%; }
+    .map-area[data-map-area="hai-chau"] { left: 53%; top: 48%; }
+    .map-area[data-map-area="cam-le"] { left: 39%; top: 73%; }
+    .map-area[data-map-area="ngu-hanh-son"] { left: 72%; top: 73%; }
+    .map-area[data-map-area="hoang-sa"] { left: 84%; top: 7%; }
+    .tip { background: #f0f7f1; }
+    .tip-icon { font-size: 18px; margin-bottom: 8px; }
+    .tip p { color: #6d7f74; font-size: 11px; line-height: 1.65; margin: 0; }
+    .empty { grid-column: 1 / -1; text-align: center; padding: 50px 20px; background: white; border-radius: 13px; color: var(--muted); font-size: 13px; }
+    .empty span { display: block; font-size: 32px; margin-bottom: 9px; }
+    .modal-backdrop { position: fixed; inset: 0; z-index: 10; display: none; align-items: center; justify-content: center; padding: 16px; background: #14251f88; }
+    .modal-backdrop.open { display: flex; }
+    .modal { width: min(100%, 520px); max-height: 92vh; overflow-y: auto; background: white; border-radius: 16px; padding: 25px; box-shadow: 0 20px 60px #10271d40; }
+    .modal-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 19px; }
+    .modal-head h2 { font-size: 20px; }
+    .modal-head p { color: var(--muted); font-size: 12px; margin: 6px 0 0; }
+    .close-btn { border: 0; background: #f2f5f2; color: #68766f; border-radius: 8px; width: 31px; height: 31px; font-size: 18px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .field { display: grid; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { color: #52635a; font-size: 11px; font-weight: 700; }
+    .field input, .field select, .field textarea { width: 100%; border: 1px solid #e1e8e2; border-radius: 8px; padding: 10px; outline: 0; background: white; color: var(--ink); font-size: 12px; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: #65aa91; box-shadow: 0 0 0 3px #157b6312; }
+    .field textarea { min-height: 78px; resize: vertical; }
+    .form-error { display: none; color: #b14c37; font-size: 11px; margin: 11px 0 0; }
+    .form-error.show { display: block; }
+    .submit-row { display: flex; justify-content: flex-end; gap: 9px; margin-top: 18px; }
+    .secondary-btn { border: 1px solid var(--line); background: white; color: #65736c; border-radius: 9px; padding: 10px 14px; font-size: 12px; font-weight: 650; }
+    .toast { position: fixed; bottom: 22px; left: 50%; z-index: 20; transform: translate(-50%, 20px); background: #183c31; color: white; border-radius: 9px; padding: 12px 17px; font-size: 12px; opacity: 0; pointer-events: none; transition: .2s; box-shadow: 0 8px 28px #14251f33; }
+    .toast.show { transform: translate(-50%, 0); opacity: 1; }
+    footer { border-top: 1px solid var(--line); padding: 20px 0 27px; text-align: center; color: #8a9790; font-size: 10px; }
+    @media (max-width: 980px) {
+      .shell { padding: 0 24px; }
+      .feed-layout { grid-template-columns: 1fr; }
+      aside { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .side-card { margin: 0; }
+    }
+    @media (max-width: 650px) {
+      .shell { padding: 0 15px; }
+      header { height: 68px; }
+      .header-right { gap: 10px; }
+      .header-right .location, .account-label { display: none; }
+      .header-right .primary-btn { padding: 10px 12px; font-size: 11px; }
+      .account-buttons { gap: 5px; }
+      .account-buttons .secondary-btn { padding: 8px; font-size: 10px; }
+      .hero { padding: 26px 21px; min-height: 220px; border-radius: 15px; }
+      .hero:after { right: -130px; }
+      .hero p { font-size: 12px; max-width: 310px; }
+      .hero-stats { gap: 17px; }
+      .stat { font-size: 10px; }
+      .stat strong { font-size: 16px; }
+      .search-wrap { margin-top: 20px; }
+      .search-box { height: 45px; }
+      .search-box input { font-size: 11px; }
+      main { padding-top: 23px; }
+      .section-top { align-items: flex-start; }
+      .filters { align-items: flex-start; flex-direction: column; }
+      .cards { grid-template-columns: 1fr; }
+      .lost-map { min-height: 285px; }
+      .map-area { width: 88px; padding: 5px 4px; font-size: 9px; }
+      aside { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .modal { padding: 20px; }
+      .admin-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .admin-heading { align-items: center; }
+    }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <div id="file-protocol-warning" role="alert" hidden style="margin: 12px auto; max-width: 760px; padding: 14px 18px; border-radius: 12px; background: #fff3cd; color: #664d03;">
+    Không mở ứng dụng bằng cách nhấp trực tiếp vào <code>index.html</code>. Hãy chạy <code>python app.py</code> trong thư mục dự án rồi truy cập <code>http://127.0.0.1:5000</code>.
+  </div>
+  <script>
+    if (window.location.protocol === "file:") {
+      document.getElementById("file-protocol-warning").hidden = false;
+    }
+  </script>
+  <div class="shell">
+    <header>
+      <a class="brand" href="#" aria-label="Nhặt Được, về đầu trang">
+        <span class="brand-mark" aria-hidden="true">⌕</span>
+        <span>nhặtđược<span style="color:var(--green)">.</span></span>
+      </a>
+      <div class="header-right">
+        <div class="location"><span aria-hidden="true">📍</span><span>Khu vực</span><strong>Đà Nẵng</strong></div>
+        <button class="primary-btn" id="open-report">＋ Đăng tin</button>
+        <div class="account-buttons" id="account-buttons">
+          <button type="button" class="secondary-btn" id="open-auth">Đăng nhập</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow">Cộng đồng tìm đồ thất lạc Đà Nẵng</div>
+        <h1 id="hero-title">Thất lạc hay nhặt được?<br>Đà Nẵng cùng tìm.</h1>
+        <p>Kết nối người mất và người nhặt được — để những món đồ tìm về đúng chủ.</p>
+        <div class="hero-stats" aria-label="Thống kê tin đăng">
+          <div class="stat"><strong id="total-count">0</strong> tin đăng</div>
+          <div class="stat"><strong id="lost-count">0</strong> đang tìm</div>
+          <div class="stat"><strong id="found-count">0</strong> đã nhặt được</div>
+        </div>
+      </div>
+      <div class="search-wrap">
+        <label class="search-box">
+          <span aria-hidden="true">⌕</span>
+          <input id="search-input" type="search" placeholder="Tìm ví, điện thoại, giấy tờ, địa điểm..." aria-label="Tìm kiếm tin đăng">
+        </label>
+      </div>
+    </section>
+
+    <main id="feed-view">
+      <div class="section-top">
+        <div>
+          <h2>Tin mới quanh bạn</h2>
+          <div class="result-count" id="result-count" aria-live="polite"></div>
+        </div>
+      </div>
+      <div class="feed-layout">
+        <section aria-label="Danh sách tin đăng">
+          <div class="filters">
+            <div class="filter-group" role="group" aria-label="Lọc theo trạng thái">
+              <button class="chip active" data-type="all">Tất cả</button>
+              <button class="chip" data-type="lost">🔎 Đang tìm</button>
+              <button class="chip" data-type="found">🤝 Đã nhặt được</button>
+            </div>
+            <label class="select-wrap">
+              <select id="category-filter" aria-label="Lọc theo danh mục">
+                <option value="all">Tất cả danh mục</option>
+                <option value="Giấy tờ">Giấy tờ</option>
+                <option value="Ví &amp; túi">Ví &amp; túi</option>
+                <option value="Điện tử">Điện tử</option>
+                <option value="Chìa khóa">Chìa khóa</option>
+                <option value="Thú cưng">Thú cưng</option>
+                <option value="Khác">Khác</option>
+              </select>
+            </label>
+          </div>
+          <section class="lost-map-panel" id="lost-map-panel" hidden aria-labelledby="lost-map-title">
+            <div class="map-heading">
+              <div>
+                <h3 id="lost-map-title">🗺️ Tin đang tìm theo khu vực</h3>
+                <p>Số tin khớp với từ khóa và danh mục hiện tại. Đây là sơ đồ theo quận, không phải vị trí chính xác.</p>
+              </div>
+              <div class="map-actions">
+                <button class="map-reset" type="button" data-map-district="Chưa rõ" aria-pressed="false">Chưa rõ quận · <span class="map-area-count">0</span></button>
+                <button class="map-reset" type="button" data-map-district="Tất cả khu vực" aria-pressed="false">Toàn Đà Nẵng</button>
+              </div>
+            </div>
+            <div class="lost-map" id="lost-map" role="group" aria-label="Chọn quận để lọc tin mất đồ">
+              <span class="map-water-label" aria-hidden="true">BIỂN ĐÔNG</span>
+              <button class="map-area" type="button" data-map-area="hoa-vang" data-map-district="Hòa Vang" aria-pressed="false"><span class="map-area-count">0</span><span>Hòa Vang</span></button>
+              <button class="map-area" type="button" data-map-area="lien-chieu" data-map-district="Liên Chiểu" aria-pressed="false"><span class="map-area-count">0</span><span>Liên Chiểu</span></button>
+              <button class="map-area" type="button" data-map-area="thanh-khe" data-map-district="Thanh Khê" aria-pressed="false"><span class="map-area-count">0</span><span>Thanh Khê</span></button>
+              <button class="map-area" type="button" data-map-area="son-tra" data-map-district="Sơn Trà" aria-pressed="false"><span class="map-area-count">0</span><span>Sơn Trà</span></button>
+              <button class="map-area" type="button" data-map-area="hai-chau" data-map-district="Hải Châu" aria-pressed="false"><span class="map-area-count">0</span><span>Hải Châu</span></button>
+              <button class="map-area" type="button" data-map-area="cam-le" data-map-district="Cẩm Lệ" aria-pressed="false"><span class="map-area-count">0</span><span>Cẩm Lệ</span></button>
+              <button class="map-area" type="button" data-map-area="ngu-hanh-son" data-map-district="Ngũ Hành Sơn" aria-pressed="false"><span class="map-area-count">0</span><span>Ngũ Hành Sơn</span></button>
+              <button class="map-area" type="button" data-map-area="hoang-sa" data-map-district="Hoàng Sa" aria-pressed="false"><span class="map-area-count">0</span><span>Hoàng Sa</span></button>
+            </div>
+          </section>
+          <div class="cards" id="cards"></div>
+        </section>
+        <aside>
+          <section class="side-card">
+            <h3>📍 Lọc theo quận</h3>
+            <div class="district-list" id="district-list"></div>
+          </section>
+          <section class="side-card tip">
+            <div class="tip-icon" aria-hidden="true">💚</div>
+            <h3>Một chút lưu ý</h3>
+            <p>Đừng chia sẻ mã OTP hay thông tin ngân hàng. Khi nhận đồ, hãy hẹn ở nơi công cộng và xác minh đặc điểm món đồ trước nhé.</p>
+          </section>
+        </aside>
+      </div>
+    </main>
+    <section class="admin-view" id="admin-panel" hidden>
+      <div class="admin-heading">
+        <div><h2>Quản trị hệ thống</h2><p>Quản lý người dùng, tin đăng và yêu cầu xác minh.</p></div>
+        <button class="secondary-btn" type="button" data-view="feed">← Quay lại tin đăng</button>
+      </div>
+      <div class="admin-stats" id="admin-stats"></div>
+      <div class="admin-card">
+        <div class="admin-tabs" role="tablist" aria-label="Khu vực quản trị">
+          <button class="chip active" type="button" data-admin-tab="users">Người dùng</button>
+          <button class="chip" type="button" data-admin-tab="posts">Tin đăng</button>
+          <button class="chip" type="button" data-admin-tab="verifications">Xác minh</button>
+        </div>
+        <div class="admin-content" id="admin-content" aria-live="polite"></div>
+      </div>
+    </section>
+    <section class="my-posts-view" id="my-posts-panel" hidden>
+      <div class="admin-heading">
+        <div><h2>Tin đăng của tôi</h2><p>Đóng tin khi đã nhận lại đồ hoặc mở lại nếu vẫn đang tìm.</p></div>
+        <button class="secondary-btn" type="button" data-view="feed">← Quay lại tin đăng</button>
+      </div>
+      <div class="cards" id="my-posts"></div>
+    </section>
+    <section class="my-posts-view" id="my-requests-panel" hidden>
+      <div class="admin-heading">
+        <div><h2>Yêu cầu của tôi</h2><p>Thông tin liên hệ của người đăng chỉ hiện sau khi yêu cầu được chấp nhận.</p></div>
+        <button class="secondary-btn" type="button" data-view="feed">← Quay lại tin đăng</button>
+      </div>
+      <div class="cards" id="my-requests"></div>
+    </section>
+    <footer>Nhặt Được · Kết nối cộng đồng Đà Nẵng · Hãy tử tế và cẩn trọng khi trao nhận.</footer>
+  </div>
+
+  <div class="modal-backdrop" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <form class="modal" id="auth-form">
+      <div class="modal-head">
+        <div><h2 id="auth-title">Đăng nhập</h2><p id="auth-subtitle">Đăng nhập để đăng tin và xác minh chủ món đồ.</p></div>
+        <button type="button" class="close-btn" id="close-auth" aria-label="Đóng">×</button>
+      </div>
+      <div class="admin-tabs" role="group" aria-label="Chọn thao tác tài khoản">
+        <button class="chip active" type="button" data-auth-mode="login">Đăng nhập</button>
+        <button class="chip" type="button" data-auth-mode="register">Tạo tài khoản</button>
+      </div>
+      <div class="form-grid">
+        <div class="field full" id="auth-name-field" hidden>
+          <label for="auth-name">Tên hiển thị</label>
+          <input id="auth-name" maxlength="80" autocomplete="name" placeholder="Tên của bạn">
+        </div>
+        <div class="field full">
+          <label for="auth-email">Email</label>
+          <input id="auth-email" type="email" required maxlength="254" autocomplete="email" placeholder="ban@email.com">
+        </div>
+        <div class="field full" id="auth-phone-field" hidden>
+          <label for="auth-phone">Số điện thoại</label>
+          <input id="auth-phone" type="tel" maxlength="15" inputmode="tel" pattern="[0-9]{8,15}" autocomplete="tel" placeholder="0912345678">
+        </div>
+        <div class="field full">
+          <label for="auth-password">Mật khẩu</label>
+          <input id="auth-password" type="password" required minlength="8" maxlength="128" autocomplete="current-password">
+        </div>
+      </div>
+      <div class="form-error" id="auth-error" role="alert"></div>
+      <div class="submit-row"><button type="submit" class="primary-btn" id="auth-submit">Đăng nhập</button></div>
+    </form>
+  </div>
+
+  <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <form class="modal" id="report-form">
+      <div class="modal-head">
+        <div><h2 id="modal-title">Đăng tin tìm đồ</h2><p>Chia sẻ thông tin để cộng đồng giúp bạn.</p></div>
+        <button type="button" class="close-btn" id="close-modal" aria-label="Đóng">×</button>
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label for="report-type">Bạn muốn</label>
+          <select id="report-type" required>
+            <option value="lost">Báo mất đồ</option>
+            <option value="found">Báo nhặt được</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="report-category">Danh mục</label>
+          <select id="report-category" required>
+            <option>Giấy tờ</option><option>Ví &amp; túi</option><option>Điện tử</option>
+            <option>Chìa khóa</option><option>Thú cưng</option><option>Khác</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="report-title">Tên món đồ</label>
+          <input id="report-title" required maxlength="70" placeholder="Ví dụ: Ví màu nâu, CCCD...">
+        </div>
+        <div class="field full">
+          <label for="report-description">Mô tả / đặc điểm nhận dạng</label>
+          <textarea id="report-description" required maxlength="240" placeholder="Màu sắc, nhãn hiệu, đặc điểm riêng..."></textarea>
+        </div>
+        <div class="field full" id="report-clue-field" hidden>
+          <label for="report-clue">Đặc điểm bí mật để AI đối chiếu</label>
+          <textarea id="report-clue" minlength="15" maxlength="300" placeholder="Chi tiết riêng chỉ bạn biết, không ghi vào mô tả công khai."></textarea>
+          <span class="status-text" id="report-clue-hint">Không hiển thị công khai. Chọn chi tiết riêng, không dùng số giấy tờ, mật khẩu hay mã OTP.</span>
+        </div>
+        <div class="field">
+          <label for="report-district">Quận / khu vực (nếu biết)</label>
+          <select id="report-district">
+            <option value="" selected>Chọn quận nếu biết</option>
+            <option>Hải Châu</option><option>Thanh Khê</option><option>Sơn Trà</option>
+            <option>Ngũ Hành Sơn</option><option>Liên Chiểu</option><option>Cẩm Lệ</option>
+            <option>Hòa Vang</option><option>Hoàng Sa</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="report-location">Đường hoặc khu vực mất đồ</label>
+          <input id="report-location" maxlength="120" placeholder="Ví dụ: đường Nguyễn Văn Linh hoặc gần cầu Rồng">
+          <span class="status-text" id="report-location-hint">Chỉ cần chọn quận/khu vực hoặc nhập đường/khu vực; có thể điền cả hai để dễ tìm hơn.</span>
+        </div>
+        <div class="field">
+          <label for="report-date">Ngày xảy ra</label>
+          <input id="report-date" type="date" required>
+        </div>
+        <div class="field">
+          <label for="report-phone">Số điện thoại liên hệ</label>
+          <input id="report-phone" type="tel" required maxlength="15" inputmode="tel" pattern="[0-9]{8,15}" placeholder="0912345678">
+        </div>
+      </div>
+      <div class="form-error" id="form-error" role="alert"></div>
+      <div class="submit-row">
+        <button type="button" class="secondary-btn" id="cancel-modal">Hủy</button>
+        <button type="submit" class="primary-btn">Đăng tin</button>
+      </div>
+    </form>
+  </div>
+  <div class="modal-backdrop" id="verification-modal" role="dialog" aria-modal="true" aria-labelledby="verification-title">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h2 id="verification-title">Xác minh món đồ</h2>
+          <p id="verification-item"></p>
+        </div>
+        <button type="button" class="close-btn" id="close-verification" aria-label="Đóng">×</button>
+      </div>
+      <form id="verification-form">
+        <input id="verification-post-id" type="hidden">
+        <div class="form-grid">
+          <div class="field full">
+            <label for="verification-details" id="verification-details-label">Thông tin đối chiếu</label>
+            <textarea id="verification-details" required minlength="10" maxlength="500" placeholder="Mô tả đặc điểm riêng để người đăng đối chiếu..."></textarea>
+          </div>
+          <div class="field full">
+            <label for="verification-phone">Số điện thoại liên hệ</label>
+            <input id="verification-phone" type="tel" required maxlength="15" inputmode="tel" pattern="[0-9]{8,15}" placeholder="0912345678">
+          </div>
+          <div class="field full" id="meeting-fields" hidden>
+            <label for="meeting-location">Địa điểm hẹn đề xuất</label>
+            <input id="meeting-location" type="text" maxlength="200" placeholder="Ví dụ: sảnh chính trung tâm thương mại">
+            <label for="meeting-at">Ngày và giờ hẹn</label>
+            <input id="meeting-at" type="datetime-local">
+            <label class="meeting-confirm" for="meeting-is-public">
+              <input id="meeting-is-public" type="checkbox">
+              <span>Tôi xác nhận đây là địa điểm công cộng, đông người</span>
+            </label>
+            <p class="status-text">Nên hẹn từ 06:00 đến 22:00 tại nơi công cộng, đông người.</p>
+            <div class="safety-warning" id="meeting-safety-warning" role="alert" hidden>
+              Cảnh báo an toàn: giờ hẹn nằm ngoài 06:00–22:00 và địa điểm chưa được xác nhận là nơi công cộng, đông người. Người đăng tin sẽ được cảnh báo và nên yêu cầu đổi lịch hoặc địa điểm.
+            </div>
+          </div>
+          <div class="verify-note">Thông tin này không hiển thị công khai; chỉ người đăng tin và quản trị viên được xem. Bộ lọc AI cục bộ đối chiếu với đặc điểm bí mật. Số điện thoại chỉ được chia sẻ sau khi người đăng chấp nhận. Điểm AI không chứng minh danh tính và không tự quyết định trao đồ. Không gửi mã OTP, mật khẩu hay toàn bộ số giấy tờ.</div>
+        </div>
+        <div class="form-error" id="verification-error" role="alert"></div>
+        <div class="submit-row">
+          <button type="submit" class="primary-btn" id="verification-submit">Gửi thông tin</button>
+        </div>
+      </form>
+      <section id="verification-inbox" hidden aria-live="polite"></section>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="application/json" id="legacy-demo-script">
+    (function () {
+      "use strict";
+      const STORAGE_KEY = "nhat-duoc-danang-posts-v1";
+      const VERIFICATION_KEY = "nhat-duoc-danang-verifications-v1";
+      const samplePosts = [
+        { id: "sample-1", type: "lost", title: "Mất ví da màu nâu", category: "Ví & túi", description: "Ví nhỏ màu nâu, bên trong có giấy tờ mang tên chủ sở hữu. Mong được liên hệ nếu nhặt thấy.", district: "Hải Châu", location: "Gần cầu Rồng", date: "2026-11-14", phone: "", icon: "👛", tone: "gold", sample: true },
+        { id: "sample-2", type: "found", title: "Nhặt được chìa khóa xe", category: "Chìa khóa", description: "Chùm chìa khóa có móc khóa màu xanh, nhặt được gần lối đi bộ ven biển.", district: "Sơn Trà", location: "Công viên Biển Đông", date: "2026-11-14", phone: "", icon: "🔑", tone: "", sample: true },
+        { id: "sample-3", type: "lost", title: "Thất lạc điện thoại Samsung", category: "Điện tử", description: "Điện thoại màu đen, ốp lưng trong. Rơi khoảng buổi chiều, xin cảm ơn nếu tìm được.", district: "Thanh Khê", location: "Ga Đà Nẵng", date: "2026-11-13", phone: "", icon: "📱", tone: "blue", sample: true },
+        { id: "sample-4", type: "found", title: "Nhặt được thẻ sinh viên", category: "Giấy tờ", description: "Thẻ sinh viên được nhặt gần khu vực trường học. Chủ nhân liên hệ và mô tả đặc điểm để nhận lại.", district: "Liên Chiểu", location: "Khu vực Đại học Bách khoa", date: "2026-11-13", phone: "", icon: "🪪", tone: "pink", sample: true },
+        { id: "sample-5", type: "lost", title: "Tìm bé mèo mướp", category: "Thú cưng", description: "Mèo mướp xám, đeo vòng cổ đỏ. Bé đi lạc buổi tối, gia đình đang rất mong tin.", district: "Cẩm Lệ", location: "Khu dân cư Hòa Xuân", date: "2026-11-12", phone: "", icon: "🐈", tone: "gold", sample: true },
+        { id: "sample-6", type: "found", title: "Nhặt được túi vải màu be", category: "Ví & túi", description: "Túi vải nhỏ, bên trong có một vài vật dụng cá nhân. Nhặt ở khu vực quán cà phê.", district: "Ngũ Hành Sơn", location: "Đường Ngũ Hành Sơn", date: "2026-11-11", phone: "", icon: "👜", tone: "", sample: true }
+      ];
+      const categoryIcons = { "Giấy tờ": ["🪪", "blue"], "Ví & túi": ["👛", "gold"], "Điện tử": ["📱", "blue"], "Chìa khóa": ["🔑", ""], "Thú cưng": ["🐈", "gold"], "Khác": ["📦", "pink"] };
+      const districts = ["Tất cả khu vực", "Hải Châu", "Thanh Khê", "Sơn Trà", "Ngũ Hành Sơn", "Liên Chiểu", "Cẩm Lệ", "Hòa Vang", "Hoàng Sa"];
+      const cards = document.getElementById("cards");
+      const searchInput = document.getElementById("search-input");
+      const categoryFilter = document.getElementById("category-filter");
+      const resultCount = document.getElementById("result-count");
+      const modal = document.getElementById("modal");
+      const form = document.getElementById("report-form");
+      const errorBox = document.getElementById("form-error");
+      const verificationModal = document.getElementById("verification-modal");
+      const verificationForm = document.getElementById("verification-form");
+      const verificationError = document.getElementById("verification-error");
+      const verificationInbox = document.getElementById("verification-inbox");
+      const districtList = document.getElementById("district-list");
+      let activeType = "all";
+      let activeDistrict = "Tất cả khu vực";
+      let toastTimer;
+      let posts = loadPosts();
+      let verificationRequests = loadVerificationRequests();
+
+      function loadPosts() {
+        try {
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (!saved) return samplePosts.slice();
+          const parsed = JSON.parse(saved);
+          if (!Array.isArray(parsed)) throw new Error("Dữ liệu tin đăng không hợp lệ.");
+          return parsed.concat(samplePosts);
+        } catch (error) {
+          console.error("Không thể đọc tin đã lưu:", error);
+          return samplePosts.slice();
+        }
+      }
+
+      function loadVerificationRequests() {
+        try {
+          const saved = localStorage.getItem(VERIFICATION_KEY);
+          if (!saved) return [];
+          const parsed = JSON.parse(saved);
+          if (!Array.isArray(parsed)) throw new Error("Dữ liệu xác minh không hợp lệ.");
+          return parsed;
+        } catch (error) {
+          console.error("Không thể đọc thông tin xác minh:", error);
+          return [];
+        }
+      }
+
+      function escapeHTML(value) {
+        return String(value).replace(/[&<>"']/g, function (char) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char];
+        });
+      }
+
+      function formatDate(value) {
+        const parts = value.split("-");
+        return parts.length === 3 ? parts[2] + "/" + parts[1] + "/" + parts[0] : value;
+      }
+
+      function renderDistricts() {
+        districtList.innerHTML = districts.map(function (district) {
+          const count = district === "Tất cả khu vực"
+            ? posts.length
+            : posts.filter(function (post) { return post.district === district; }).length;
+          return '<button class="district-btn' + (activeDistrict === district ? " selected" : "") +
+            '" type="button" data-district="' + escapeHTML(district) + '"><span>' + escapeHTML(district) +
+            '</span><span>' + count + '</span></button>';
+        }).join("");
+      }
+
+      function render() {
+        const query = searchInput.value.trim().toLocaleLowerCase("vi");
+        const category = categoryFilter.value;
+        const visible = posts.filter(function (post) {
+          const text = [post.title, post.description, post.location, post.district, post.category].join(" ").toLocaleLowerCase("vi");
+          return (activeType === "all" || post.type === activeType) &&
+            (category === "all" || post.category === category) &&
+            (activeDistrict === "Tất cả khu vực" || post.district === activeDistrict) &&
+            (!query || text.includes(query));
+        }).sort(function (a, b) { return b.date.localeCompare(a.date); });
+
+        document.getElementById("total-count").textContent = posts.length;
+        document.getElementById("lost-count").textContent = posts.filter(function (post) { return post.type === "lost"; }).length;
+        document.getElementById("found-count").textContent = posts.filter(function (post) { return post.type === "found"; }).length;
+        resultCount.textContent = "Hiển thị " + visible.length + " tin đăng";
+        renderDistricts();
+
+        if (!visible.length) {
+          cards.innerHTML = '<div class="empty"><span>🔎</span>Chưa tìm thấy tin phù hợp. Hãy thử từ khóa hoặc bộ lọc khác nhé.</div>';
+          return;
+        }
+        cards.innerHTML = visible.map(function (post) {
+          const icon = categoryIcons[post.category] || ["📦", ""];
+          const itemIcon = post.icon || icon[0];
+          const tone = post.tone || icon[1];
+          const status = post.type === "lost" ? "ĐANG TÌM" : "ĐÃ NHẶT ĐƯỢC";
+          const contact = post.phone
+            ? '<a class="contact-btn" href="tel:' + escapeHTML(post.phone) + '">☎ Gọi người đăng</a>'
+            : '<button class="contact-btn" type="button" data-sample="true">☎ Thông tin liên hệ</button>';
+          const requests = verificationRequests.filter(function (request) { return request.postId === post.id; });
+          const verifyAction = post.type === "found"
+            ? '<button class="contact-btn" type="button" data-verify="' + escapeHTML(post.id) + '">✦ Tôi là chủ món đồ</button>'
+            : "";
+          const inboxAction = requests.length
+            ? '<button class="contact-btn" type="button" data-review="' + escapeHTML(post.id) + '">📩 Xem yêu cầu xác minh (' + requests.length + ')</button>'
+            : "";
+          return '<article class="card">' +
+            '<div class="item-icon ' + escapeHTML(tone) + '" aria-hidden="true">' + escapeHTML(itemIcon) + '</div>' +
+            '<div class="card-content"><div class="card-head"><h3>' + escapeHTML(post.title) + '</h3>' +
+            '<span class="badge ' + (post.type === "lost" ? "lost" : "found") + '">' + status + '</span>' +
+            (post.sample ? '<span class="badge sample">TIN MẪU</span>' : "") + '</div>' +
+            '<p class="description">' + escapeHTML(post.description) + '</p>' +
+            '<div class="card-meta"><span>📍 ' + escapeHTML(post.district) + ' · ' + escapeHTML(post.location) + '</span>' +
+            '<span>◷ ' + escapeHTML(formatDate(post.date)) + '</span></div>' +
+            '<div class="card-actions">' + contact + verifyAction + inboxAction + '</div></div></article>';
+        }).join("");
+      }
+
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 3000);
+      }
+
+      function closeModal() {
+        modal.classList.remove("open");
+        errorBox.classList.remove("show");
+      }
+
+      function openVerification(postId, showInbox) {
+        const post = posts.find(function (item) { return item.id === postId; });
+        if (!post) return;
+        verificationForm.reset();
+        document.getElementById("verification-post-id").value = postId;
+        document.getElementById("verification-item").textContent = post.title + " · " + post.district;
+        verificationError.classList.remove("show");
+        verificationInbox.hidden = !showInbox;
+        verificationInbox.innerHTML = "";
+        if (showInbox) renderVerificationInbox(postId);
+        verificationModal.classList.add("open");
+        if (!showInbox) document.getElementById("verification-details").focus();
+      }
+
+      function renderVerificationInbox(postId) {
+        const requests = verificationRequests.filter(function (request) { return request.postId === postId; });
+        verificationInbox.innerHTML = '<h3 class="inbox-title">Thông tin người nhận là chủ món đồ</h3>' +
+          (requests.length
+            ? '<div class="request-list">' + requests.map(function (request) {
+              return '<article class="request-card"><p>' + escapeHTML(request.details) + '</p>' +
+                '<a href="tel:' + escapeHTML(request.phone) + '">☎ ' + escapeHTML(request.phone) + '</a></article>';
+            }).join("") + '</div>'
+            : '<p class="inbox-empty">Chưa có yêu cầu xác minh.</p>');
+      }
+
+      function closeVerificationModal() {
+        verificationModal.classList.remove("open");
+        verificationError.classList.remove("show");
+      }
+
+      document.getElementById("open-report").addEventListener("click", function () {
+        modal.classList.add("open");
+        document.getElementById("report-date").value = new Date().toISOString().slice(0, 10);
+        document.getElementById("report-title").focus();
+      });
+      document.getElementById("close-modal").addEventListener("click", closeModal);
+      document.getElementById("cancel-modal").addEventListener("click", closeModal);
+      modal.addEventListener("click", function (event) { if (event.target === modal) closeModal(); });
+      document.getElementById("close-verification").addEventListener("click", closeVerificationModal);
+      verificationModal.addEventListener("click", function (event) {
+        if (event.target === verificationModal) closeVerificationModal();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeModal();
+          closeVerificationModal();
+        }
+      });
+      searchInput.addEventListener("input", render);
+      categoryFilter.addEventListener("change", render);
+
+      document.querySelectorAll(".chip").forEach(function (button) {
+        button.addEventListener("click", function () {
+          activeType = button.dataset.type;
+          document.querySelectorAll(".chip").forEach(function (chip) { chip.classList.toggle("active", chip === button); });
+          render();
+        });
+      });
+
+      districtList.addEventListener("click", function (event) {
+        const button = event.target.closest("[data-district]");
+        if (!button) return;
+        activeDistrict = button.dataset.district;
+        render();
+      });
+
+      cards.addEventListener("click", function (event) {
+        if (event.target.closest("[data-sample]")) showToast("Đây là tin minh họa. Đăng tin thật để thêm số liên hệ nhé.");
+        const verifyButton = event.target.closest("[data-verify]");
+        if (verifyButton) openVerification(verifyButton.dataset.verify, false);
+        const reviewButton = event.target.closest("[data-review]");
+        if (reviewButton) openVerification(reviewButton.dataset.review, true);
+      });
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        const category = document.getElementById("report-category").value;
+        const newPost = {
+          id: "post-" + Date.now(),
+          type: document.getElementById("report-type").value,
+          category: category,
+          title: document.getElementById("report-title").value.trim(),
+          description: document.getElementById("report-description").value.trim(),
+          district: document.getElementById("report-district").value,
+          location: document.getElementById("report-location").value.trim(),
+          date: document.getElementById("report-date").value,
+          phone: document.getElementById("report-phone").value.trim()
+        };
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+          if (!Array.isArray(saved)) throw new Error("Dữ liệu tin đăng đã lưu không hợp lệ.");
+          saved.unshift(newPost);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+        } catch (error) {
+          console.error("Không thể lưu tin đăng:", error);
+          errorBox.textContent = "Không thể lưu tin đăng trên thiết bị này. Vui lòng kiểm tra dung lượng trình duyệt và thử lại.";
+          errorBox.classList.add("show");
+          return;
+        }
+        posts.unshift(newPost);
+        form.reset();
+        closeModal();
+        activeType = "all";
+        activeDistrict = "Tất cả khu vực";
+        searchInput.value = "";
+        categoryFilter.value = "all";
+        document.querySelectorAll(".chip").forEach(function (chip) { chip.classList.toggle("active", chip.dataset.type === "all"); });
+        render();
+        showToast("Đăng tin thành công. Cảm ơn bạn đã chia sẻ!");
+      });
+
+      verificationForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (!verificationForm.reportValidity()) return;
+        const postId = document.getElementById("verification-post-id").value;
+        const request = {
+          id: "verification-" + Date.now(),
+          postId: postId,
+          details: document.getElementById("verification-details").value.trim(),
+          phone: document.getElementById("verification-phone").value.trim(),
+          createdAt: new Date().toISOString()
+        };
+        try {
+          const saved = JSON.parse(localStorage.getItem(VERIFICATION_KEY) || "[]");
+          if (!Array.isArray(saved)) throw new Error("Dữ liệu xác minh đã lưu không hợp lệ.");
+          saved.unshift(request);
+          localStorage.setItem(VERIFICATION_KEY, JSON.stringify(saved));
+        } catch (error) {
+          console.error("Không thể lưu yêu cầu xác minh:", error);
+          verificationError.textContent = "Không thể lưu yêu cầu trên thiết bị này. Vui lòng thử lại.";
+          verificationError.classList.add("show");
+          return;
+        }
+        verificationRequests.unshift(request);
+        verificationForm.reset();
+        closeVerificationModal();
+        render();
+        showToast("Đã gửi thông tin để người nhặt đối chiếu.");
+      });
+
+      render();
+    }());
+  </script>
+  <script src="/static/client.js?v=2" defer></script>
+</body>
+</html>
