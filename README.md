@@ -18,11 +18,25 @@
 
 ## Cấu trúc dự án
 
-- `backend/`: máy chủ Flask và phân tích rủi ro cục bộ.
-- `frontend/templates/` và `frontend/static/`: giao diện HTML và JavaScript.
-- `database/`: schema SQLite và tệp dữ liệu CSDL.
-- `tests/`: kiểm thử ứng dụng.
-- `app.py` và `init_db.py`: lệnh chạy tương thích ở thư mục gốc.
+```text
+DoAnTriTueNhanTao/
+├── app.py              # Flask routes và API
+├── database.py         # Kết nối SQLite, nạp schema và cập nhật schema cũ
+├── recommend.py        # Chuẩn hóa từ khóa và chấm điểm xác minh cục bộ
+├── init_db.py          # Khởi tạo tài khoản quản trị
+├── requirements.txt
+├── data/
+│   ├── schema.sql
+│   └── danang_lost_found.db  # Tự tạo khi chạy; không đưa lên Git
+├── templates/
+│   └── index.html
+├── static/
+│   ├── style.css
+│   └── client.js
+└── tests/
+```
+
+Các tên `results.html`, `admin_add.html` và `seed_data.csv` trong ví dụ phòng trọ không phù hợp với luồng tin thất lạc của ứng dụng này; giao diện hiện tại dùng một trang chính, dữ liệu thật được nhập trực tiếp và lưu trong SQLite.
 
 Không mở trực tiếp `index.html` bằng giao thức `file://`; trang cần máy chủ Flask để đăng nhập và lưu dữ liệu.
 

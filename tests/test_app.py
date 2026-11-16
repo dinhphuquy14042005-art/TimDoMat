@@ -2,9 +2,9 @@ import sqlite3
 
 import pytest
 
-from backend.app import create_app
-from backend.fraud_analysis import analyze_claim
-from backend.init_db import initialize_database
+from app import create_app
+from init_db import initialize_database
+from recommend import analyze_claim
 
 
 @pytest.fixture
@@ -26,11 +26,15 @@ def api(client, method, path, data=None, csrf=True):
 def test_frontend_is_served_from_organized_folders(client):
     page = client.get("/")
     script = client.get("/static/client.js")
+    stylesheet = client.get("/static/style.css")
 
     assert page.status_code == 200
     assert b"<title>" in page.data
+    assert b'/static/style.css' in page.data
     assert script.status_code == 200
     assert b'"use strict"' in script.data
+    assert stylesheet.status_code == 200
+    assert b"--green:" in stylesheet.data
 
 
 def register(client, email, name):
